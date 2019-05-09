@@ -1,0 +1,24 @@
+{
+    "name": "Facebook",
+    "baseURL": "https://graph.facebook.com/v3.2",
+    "urlSegments": {
+        "mainAccount": {
+           "endpoint" : "me/adaccounts",
+            "params": "name,account_id",
+            "fileName": "facebook.accounts.json"
+        },
+        "reporting": {
+            "endpoint" : "insights",
+            "params": {
+                "ad": "&level=ad&filtering=[{field:'ad.impressions',operator:'GREATER_THAN',value:0}]&fields=account_id,account_name,campaign_id,campaign_name,impressions,inline_link_clicks,clicks,cpc,ctr,cpm,cpp,spend,social_spend,created_time,reach,frequency,website_ctr,actions"
+            }
+        }
+    },
+    "dashboardAccessToken": "EAAFlOVB8mIABAMJSVrwZCusZAb3HeVs4WOAC6v8ZAl0dGLzAEWZBsJBRYjY0JUzLq88GoKOz61TdQtHSKo18D6biZCJcrbi4zZCdjytFbfX8ritiMi1aeUyI3bczAVnh8YybZAJSdIKYHDdqgY4gNtXyITxwI8G8F5MUy6IlG4tCgc0WcHRKG2D",
+    "adsManagerAccessToken": "EAAFlOVB8mIABAAbpMYLaSDPb0eL7cqrpCdQZAujPRWMWfGgbAsRjmwgkvpSw5Jbewy8mAfvqI9ZAsZChi434CE0JYJD2CQ1zLAtZB5buzZCFvNg8juElaCTu9Cb1BEYDIZA3XFYI9HZCLVtvpSNXoIP5w0Ts8rLyoER4SmPSRhBEEVvYzBwf8RD",
+    "FB_REPORT_URL": "https://www.facebook.com/ads/ads_insights/export_report/",
+    "FB_REPORT_PARAMS_BASIC": "&level=ad&filtering=[{field:'ad.impressions',operator:'GREATER_THAN',value:0}]&fields=account_id,account_name,campaign_id,campaign_name,impressions,inline_link_clicks,clicks,cpc,ctr,cpm,cpp,spend,social_spend,created_time,reach,frequency,website_ctr,actions",
+    "FB_REPORT_PARAMS_ADSET": "&level=adset&filtering=[{field:'ad.impressions',operator:'GREATER_THAN',value:0}]&fields=account_id,account_name,campaign_id,campaign_name,impressions,inline_link_clicks,clicks,cpc,ctr,cpm,cpp,spend,social_spend,created_time,reach,frequency,website_ctr,actions",
+    "FB_REPORT_PARAMS_AGE_GENDER_BREAKDOWN": "&level=ad&filtering=[{field:'ad.impressions',operator:'GREATER_THAN',value:0}]&fields=account_id,account_name,campaign_id,campaign_name,impressions,inline_link_clicks,clicks,cpc,ctr,cpm,cpp,spend,social_spend,created_time,reach,frequency,website_ctr,actions&breakdowns=age,gender",
+    "accountsFilter": "/(Deming|DM Juice|In York|Camarillo|Keith|Tallahassee Ad Account$)/gi"
+}

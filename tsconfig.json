@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "baseUrl": "src",
+      "outDir": "build",
+      "sourceMap": true,
+      "module": "commonjs",
+      "target": "es5",
+      "paths": {
+        "@libs": ["libs/index"],
+        "@tasks": ["tasks/index"],
+        "@cmdline": ["libs/cmdline/index"],
+        "@config": ["libs/config/index"],
+        "@templating": ["libs/templating/index"],
+        "@facebook": ["libs/facebook/index"],
+        "@db": ["db/index"],
+        "@data": ["libs/data/index"],
+        "@firebaseDB": ["libs/firebase/index"],
+        "@landingPages": ["libs/landingPages"]
+      },
+        "typeRoots" : ["./node_modules/@types", "./typings"]
+      }    
+}

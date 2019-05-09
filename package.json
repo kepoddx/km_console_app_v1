@@ -1,0 +1,38 @@
+{
+    "name": "km_console_app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "ts-node -r tsconfig-paths/register index.ts",
+        "prod": "node build/src/index.js",
+        "compile": "tsc",
+        "build": "tsc && tsc-resolve"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.18.0",
+        "chalk": "^2.4.2",
+        "csvjson": "^5.1.0",
+        "enquirer": "^2.3.0",
+        "entities": "^1.1.2",
+        "firebase": "^5.9.2",
+        "fs-extra": "^7.0.1",
+        "html-entities": "^1.2.1",
+        "lodash": "^4.17.11",
+        "mustache": "^3.0.1",
+        "nedb": "^1.8.0",
+        "rxjs": "^6.4.0",
+        "sha": "^3.0.0",
+        "xml2js": "^0.4.19"
+    },
+    "devDependencies": {
+        "@types/node": "^11.12.2",
+        "ts-node": "^8.0.3",
+        "tsc-resolve": "^1.0.6",
+        "tsconfig-paths": "^3.8.0",
+        "typescript": "^3.4.1"
+    }
+}
