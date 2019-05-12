@@ -79,6 +79,8 @@ const sitesMap: SitesMap = {
 export interface EndPoint {
     endPoint: string;
     link: string;
+    combined?: boolean;
+    cFeed?: string;
 }
 
 export interface SiteRss {
@@ -240,10 +242,16 @@ const sites: SiteRss[] = [
         feedUrl: "http://static.knoxnews.com/rss/",
         endPoints: [
             { endPoint: "bizjournal", link: "http://rssfeeds.knoxnews.com/knoxville/business-journal/&x=1" },
+            { endPoint: "knoxBiz", link: "http://rssfeeds.knoxnews.com/knoxville/business&x=1" },
             { endPoint: "goKnox", link: "http://rssfeeds.knoxnews.com/knoxville/go-knoxville&x=1" },
+            { endPoint: "johnAdams", link: "http://rssfeeds.knoxnews.com/knoxville/john-adams/&x=1" },
+            { endPoint: "utFootball", link: "http://rssfeeds.knoxnews.com/knoxville/sports/ut-football/&x=1"}
         ],
         liveEndPoints: [
-            { endPoint: "bizjournal", link: "http://rssfeeds.knoxnews.com/knoxville/business-journal/&x=1" },
+            { endPoint: "knoxBiz", link: "http://rssfeeds.knoxnews.com/knoxville/business&x=1" },
+            { endPoint: "johnAdams", link: "http://rssfeeds.knoxnews.com/knoxville/john-adams/&x=1" },
+            { endPoint: "utFootball", link: "http://rssfeeds.knoxnews.com/knoxville/sports/ut-football/&x=1"},
+            { endPoint: "bizjournal", link: "http://rssfeeds.knoxnews.com/knoxville/business-journal/&x=1"},
             { endPoint: "goKnox", link: "http://rssfeeds.knoxnews.com/knoxville/go-knoxville&x=1" },
         ]
     },

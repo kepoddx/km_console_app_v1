@@ -70,6 +70,13 @@ export default class RssLandingPages {
             mergeMap((site) => forkJoin(site.endpoints.map(endpoint => this.parseRssFeed(site.site, endpoint, storyCount))))
         )
     }
+
+    parseAndLoadSiteFeedToDB(site:any, storyCount:number = 8) {
+        return of(site)
+        .pipe(
+            switchMap(endpoint => this.parseRssFeed(site.site, endpoint, storyCount))
+        )
+    }
     getEndPoint(sitename:string, endpoint:string) {
         return this.config.getRssSiteEndPoint$(sitename, endpoint)
     }
@@ -78,8 +85,10 @@ export default class RssLandingPages {
         return RssHttp.getRssFeed(feedUrl);
     }
     parseRssFeed(siteName:string, feed:any, storyCount:number = 8) {
+        console.log("Got", feed)
         return this.getRssFeed(feed.link)
             .pipe(
+                tap(d => console.log("Got Back", d)),
                 map(res => res.items),
                 map(stories => {
                     let cleanedStories = [];
@@ -99,6 +108,31 @@ export default class RssLandingPages {
                 }),
                 tap(() => console.log("Site", siteName, "Vertical", feed.endPoint)),
                 switchMap(stories => this.saveRssFeedToDb(siteName, feed.endPoint, stories))
+            )
+    }
+    parseAndReturnRssFeed(siteName:string, feed:any, storyCount:number = 8) {
+        return this.getRssFeed('http://rssfeeds.knoxnews.com/knoxville/sports/ut-football/&x=1')
+            .pipe(
+                tap(d => console.log("GOT BACK", d)),
+                map(res => res.items),
+                map(stories => {
+                    let cleanedStories = [];
+                    stories.map(story => {
+                        if(cleanedStories.length === storyCount) return;
+                        const cleanTitleAndDescription = this.filterWords(story.title, story.description)
+                        if(!cleanTitleAndDescription.clean || story.media[0].url === '') return;
+                        cleanedStories.push({
+                            title: cleanTitleAndDescription.title,
+                            date: story.date,
+                            storyLink: story.link,
+                            imageLink: story.media[0].url,
+                            description: cleanTitleAndDescription.description
+                        })
+                    })
+                    return cleanedStories
+                }),
+                // tap(() => console.log("Site", siteName, "Vertical", feed.endPoint)),
+                // switchMap(stories => this.saveRssFeedToDb(siteName, feed.endPoint, stories))
             )
     }
     saveRssFeedToDb(site:string, vertical:string, stories:CleanStory[]) {

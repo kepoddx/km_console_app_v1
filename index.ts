@@ -64,14 +64,21 @@ function listDataFiles(dirName: string) {
         )
         .subscribe(r => log(r))
 }
-
 // testRssFeed('http://rssfeeds.greenvilleonline.com/greenville/sports&x=1', 8)
-testRssFeed('greenville', 'sports')
+// testRssFeed('knoxville', 'goKnox')
 function testRssFeed(siteName:string, endPoint:string, storyCount:number = 8) {
     const rss = new RssLandingPages();
     rss.getEndPoint(siteName, endPoint)
-
+    .pipe(
+        map(endPointConfig => endPointConfig[0]),
+        switchMap(feed => rss.parseAndReturnRssFeed(siteName, feed))
+    )
     .subscribe(r => console.log(r))
+}
+
+
+function combineFeeds(siteName:string) {
+
 }
 // addRssEndpoint('greenville')
 function addRssEndpoint(siteName:string) {
@@ -107,7 +114,7 @@ function splitRssStreamByLinkTag(sitename: string, endpoint: string, storyCount:
         )
         .subscribe(d => log(JSON.stringify(d)))
 }
-parseRssStreamByGuidTag('greenville', 'sports', 8)
+// parseRssStreamByGuidTag('greenville', 'sports', 8)
 function parseRssStreamByGuidTag(sitename: string, endpoint: string, storyCount: number) {
     const rss = new RssLandingPages();
     rss.getEndPoint(sitename, endpoint)
@@ -132,13 +139,14 @@ function updateAllRssFeeds(storyCount: number = 8) {
         .subscribe(d => log(JSON.stringify(d)))
 }
 
-// updateRssFeed()
+updateRssFeed('knoxville', 'knoxBiz')
 function updateRssFeed(siteName: string, endpoint: string, storyCount: number = 8) {
     const rss = new RssLandingPages();
     rss.getEndPoint(siteName, endpoint)
         .pipe(
-            map(sitesConfig => sitesConfig.map(site => ({ site: site.name, endpoints: site.liveEndPoints }))),
-            mergeMap((sitesLiveConfg: LiveSite[]) => forkJoin(sitesLiveConfg.map((site: LiveSite) => rss.parseAndLoadSiteFeedsToDB(site, storyCount))))
+            tap(d => console.log(d))
+            // map(sitesConfig => ({ site: siteName, link: sitesConfig.link })),
+            // switchMap((site:any) =>  rss.parseAndLoadSiteFeedToDB(site, storyCount))
         )
         .subscribe(d => log(JSON.stringify(d)))
 }
