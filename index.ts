@@ -138,8 +138,28 @@ function updateAllRssFeeds(storyCount: number = 8) {
         )
         .subscribe(d => log(JSON.stringify(d)))
 }
-
-updateRssFeed('knoxville', 'knoxBiz')
+getAllLiveEndpoints()
+function getAllLiveEndpoints() {
+    const rss = new RssLandingPages();
+    rss.getAllRssFeeds()
+        .pipe(
+            map(sitesConfig =>  {
+             const flat =  sitesConfig.map(site =>  {
+                    const res = []
+                    site.liveEndPoints.map(endpoint => {
+                        res.push(`Site: ${site.name} Rss Feed Url: ${endpoint.link}`)
+                    })
+                    return res
+                })
+             return [].concat(...flat)
+            }),
+        )
+        .subscribe(d => {
+            log(JSON.stringify(d, null, 4))
+            log(d.length)
+        })
+}
+// updateRssFeed('knoxville', 'knoxBiz')
 function updateRssFeed(siteName: string, endpoint: string, storyCount: number = 8) {
     const rss = new RssLandingPages();
     rss.getEndPoint(siteName, endpoint)
@@ -148,13 +168,15 @@ function updateRssFeed(siteName: string, endpoint: string, storyCount: number = 
             // map(sitesConfig => ({ site: siteName, link: sitesConfig.link })),
             // switchMap((site:any) =>  rss.parseAndLoadSiteFeedToDB(site, storyCount))
         )
-        .subscribe(d => log(JSON.stringify(d)))
+        .subscribe(d => {
+            log(JSON.stringify(d))
+        })
 }
 const specialFeeds = [
     { site: 'greenvile', endpoint: 'sports', parseByPhrase: 'clemson'}
 ]
 
-updateRssFeedWthException(specialFeeds)
+// updateRssFeedWthException(specialFeeds)
 function updateRssFeedWthException(feedsConfig: any[], storyCount: number = 8) {
     const rss = new RssLandingPages();
 
